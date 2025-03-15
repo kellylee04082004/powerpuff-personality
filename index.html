@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Personality Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 💡 Mobile-friendly app container */
+        #frame-container {
+            width: 525px;  /* Standard mobile width */
+            height: 700px; /* Standard mobile height */
+            position: relative;
+            overflow: hidden;
+            border-radius: 0px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* 🌍 Center the frame in all screen sizes */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: white; /* Ensures a fallback background */
+        }
+
+        /* 🖼️ Fix background image loading */
+        #frame-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/background.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        /* 📌 Content Layout */
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* 🎥 Video Modal */
+        #videoModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #videoModal video {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 0px;
+        }
+
+        #closeBtn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 🎥 Video Modal (Intro Video) -->
+    <div id="videoModal">
+        <span id="closeBtn">&times;</span>
+        <video id="introVideo" autoplay muted playsinline>
+            <source src="videos/intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- 📱 Mobile App Frame -->
+    <div id="frame-container">
+        <div class="content">
+            <h1 class="text-2xl font-bold text-pink-500 mt-6">Personality Test</h1>
+
+            <!-- 🚀 Start Button -->
+            <button id="start-button" class="mt-5 bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition">
+                Start Quiz
+            </button>
+
+            <!-- 📝 Quiz Content (Hidden Initially) -->
+            <div id="quiz-container" class="hidden mt-4 w-full flex flex-col items-center">
+                <div id="question-container" class="question text-lg font-semibold p-4 text-center"></div>
+                <div id="answer-buttons" class="flex flex-col mt-3 w-full"></div>
+            </div>
+
+            <!-- 🏆 Result Display -->
+            <div id="result" class="result mt-4 text-xl font-bold text-pink-600 hidden text-center">
+                <button id="try-again-button" class="mt-5 bg-pink-500 text-white px-4 py-2 rounded-full hover:bg-pink-600 transition">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <!-- 🎬 JavaScript for Video Modal -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const videoModal = document.getElementById("videoModal");
+            const introVideo = document.getElementById("introVideo");
+            const closeBtn = document.getElementById("closeBtn");
+
+            // Auto-play the video
+            introVideo.play().catch(error => {
+                console.log("Autoplay failed, user interaction needed", error);
+            });
+
+            // Function to fade out video modal smoothly
+            function fadeOutVideo() {
+                videoModal.style.transition = "opacity 1s ease-out";
+                videoModal.style.opacity = "0";
+                setTimeout(() => {
+                    videoModal.style.display = "none";
+                }, 1000);
+            }
+
+            // Close modal when video ends or after 2s
+            introVideo.addEventListener("ended", fadeOutVideo);
+            setTimeout(fadeOutVideo, 2000);
+
+            // Close modal when user clicks the close button
+            closeBtn.addEventListener("click", fadeOutVideo);
+        });
+    </script>
+
+</body>
+</html>
