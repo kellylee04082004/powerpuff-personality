@@ -193,7 +193,7 @@ function showResult() {
 
     // 🖼️ Create Image Element
     const image = document.createElement("img");
-    image.src = `images/${cleanPersonality}.jpg`;
+    image.src = `${cleanPersonality}.jpg`;
     image.alt = topPersonality;
     image.style.width = "320px"; // Reduce image size
     image.style.height = "auto";
