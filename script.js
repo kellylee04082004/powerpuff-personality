@@ -1,6 +1,6 @@
 const questions = [
     {
-        question: "What's your favorite weekend plan",
+        question: "What's your ideal weekend plan",
         answers: [
             { text: "Chilling with a good book", type: "a Cozy Girl" },
             { text: "Planning an exciting trip", type: "a Explorer" },
